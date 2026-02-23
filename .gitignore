@@ -1,0 +1,42 @@
+# -----------------------------
+# Java
+# -----------------------------
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.iml
+*.class
+*.swp
+*.swo
+
+# Eclipse / IntelliJ / VSCode
+/.idea/
+/*.iml
+/.vscode/
+/*.ipr
+/*.iws
+
+# -----------------------------
+# Maven
+# -----------------------------
+/target/
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/logs/
+dependency-reduced-pom.xml
+/release.properties
+
+# -----------------------------
+# Docker
+# -----------------------------
+*.env
+docker-compose.override.yml
+/docker-compose.override.yml
+**/Dockerfile.swp
+**/.dockerignore.swp
+**/docker-compose.override.yml
+**/docker-compose.override.yml
+*.tar
