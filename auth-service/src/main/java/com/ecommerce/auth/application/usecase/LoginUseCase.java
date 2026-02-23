@@ -22,7 +22,7 @@ public class LoginUseCase {
             .or(() -> userRepository.findByUsername(loginRequest.login()))
             .orElseThrow(() -> new RuntimeException("Invalid credentials"));
 
-        if (passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
+        if (!passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
 
