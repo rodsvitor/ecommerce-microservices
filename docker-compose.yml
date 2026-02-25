@@ -6,24 +6,42 @@ services:
     image: postgres:15
     container_name: postgres-auth
     environment:
-      POSTGRES_DB: authdb
-      POSTGRES_USER: authuser
-      POSTGRES_PASSWORD: authpass
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth_pass
     ports:
       - "5432:5432"
     volumes:
-      - authdb-data:/var/lib/postgresql/data
+      - auth_db-data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U authuser -d authdb" ]
+      test: [ "CMD-SHELL", "pg_isready -U auth_user -d auth_db" ]
       interval: 5s
       timeout: 5s
       retries: 5
-      
+    networks:
+      - ecommerce-network
+
+  postgres-product:
+    image: postgres:15
+    container_name: postgres-product
+    environment:
+      POSTGRES_DB: product_db
+      POSTGRES_USER: product_user
+      POSTGRES_PASSWORD: product_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - product_db-data:/var/lib/postgresql/data
+    networks:
+      - ecommerce-network
+
   kafka:
     image: apache/kafka:4.0.0
     container_name: kafka
     ports:
       - "9092:9092"
+    networks:
+      - ecommerce-network
     environment:
       # KRaft settings
       KAFKA_NODE_ID: 1
@@ -50,13 +68,41 @@ services:
     container_name: auth
     environment:
       SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-auth:5432/auth_db
+      SPRING_DATASOURCE_USERNAME: auth_user
+      SPRING_DATASOURCE_PASSWORD: auth_pass
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     ports:
-      - "8081:8081"
+      - "8081:8080"
     depends_on:
       postgres-auth:
         condition: service_healthy
       kafka:
         condition: service_started
+    networks:
+      - ecommerce-network
+
+  product:
+    build: ./product-service
+    container_name: product
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-product:5432/product_db
+      SPRING_DATASOURCE_USERNAME: product_user
+      SPRING_DATASOURCE_PASSWORD: product_pass
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres-product
+      - kafka
+    networks:
+      - ecommerce-network
 
 volumes:
-    authdb-data:
+    auth_db-data:
+    product_db-data:
+
+networks:
+  ecommerce-network:
+    driver: bridge
