@@ -1,10 +1,10 @@
 spring:
   application:
-    name: auth-service
+    name: auth
   datasource:
-    url: jdbc:postgresql://localhost:5432/authdb
-    username: authuser
-    password: authpass
+    url: jdbc:postgresql://localhost:5432/auth_db
+    username: auth_user
+    password: auth_pass
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -13,3 +13,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS}
