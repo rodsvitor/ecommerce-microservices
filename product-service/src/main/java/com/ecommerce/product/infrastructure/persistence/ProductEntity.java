@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 @Data
 @AllArgsConstructor
@@ -23,5 +24,10 @@ public class ProductEntity {
 
   @Column(nullable = false)
   private BigDecimal price;
+
+  @Column(nullable = false)
+  private Instant createdAt;
+
+  private Instant updatedAt;
 
 }
