@@ -2,7 +2,7 @@ package com.ecommerce.product.infrastructure.persistence;
 
 import com.ecommerce.product.domain.model.Product;
 import com.ecommerce.product.domain.repository.ProductRepository;
-import com.ecommerce.product.infrastructure.persistence.mapper.ProductMapper;
+import com.ecommerce.product.infrastructure.persistence.mapper.ProductMapperORM;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class ProductRepositoryImpl implements ProductRepository {
 
   private final ProductJpaRepository jpaRepository;
-  private final ProductMapper mapper;
+  private final ProductMapperORM mapper;
 
   @Override
   public Product save(Product product) {
@@ -43,5 +43,10 @@ public class ProductRepositoryImpl implements ProductRepository {
         .map(mapper::toDomain)
         .toList();
 
+  }
+
+  @Override
+  public void deleteById(Long id) {
+    jpaRepository.deleteById(id);
   }
 }
