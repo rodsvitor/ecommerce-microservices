@@ -1,15 +1,14 @@
-package com.ecommerce.product;
+package com.ecommerce.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
-@ConfigurationPropertiesScan
-public class ProductApplication {
+public class OrderApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProductApplication.class, args);
+		SpringApplication.run(OrderApplication.class, args);
 	}
 
 }

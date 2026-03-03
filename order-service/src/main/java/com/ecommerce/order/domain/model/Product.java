@@ -1,4 +1,4 @@
-package com.ecommerce.product.domain.model;
+package com.ecommerce.order.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

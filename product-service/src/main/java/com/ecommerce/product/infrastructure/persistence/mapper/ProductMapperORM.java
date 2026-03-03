@@ -6,7 +6,7 @@ import com.ecommerce.product.infrastructure.persistence.ProductEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface ProductMapper {
+public interface ProductMapperORM {
 
   Product toDomain(ProductEntity product);
 

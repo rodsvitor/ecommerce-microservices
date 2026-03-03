@@ -34,6 +34,16 @@ services:
       - product_db-data:/var/lib/postgresql/data
     networks:
       - ecommerce-network
+        
+  mongodb-order:
+    image: mongo:7
+    container_name: mongodb-order
+    ports:
+      - "27017:27017"
+    volumes:
+      - order_db-data:/var/lib/mongo/data
+    networks:
+      - ecommerce-network
 
   kafka:
     image: apache/kafka:4.0.0
@@ -86,7 +96,6 @@ services:
     build: ./product-service
     container_name: product
     environment:
-      SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-product:5432/product_db
       SPRING_DATASOURCE_USERNAME: product_user
       SPRING_DATASOURCE_PASSWORD: product_pass
@@ -99,9 +108,24 @@ services:
     networks:
       - ecommerce-network
 
+  order:
+    build: ./order-service
+    container_name: order
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb-order:27017/order_db
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "8083:8080"
+    depends_on:
+      - mongodb-order
+      - kafka
+    networks:
+      - ecommerce-network
+
 volumes:
     auth_db-data:
     product_db-data:
+    order_db-data:
 
 networks:
   ecommerce-network:
