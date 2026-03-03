@@ -1,26 +1,21 @@
 package com.ecommerce.order.domain.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.List;
-import java.util.UUID;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class Product {
 
-  private UUID id;
-  private UUID userId;
-  private List<OrderItem> items;
-  private BigDecimal totalAmount;
-  private OrderStatus status;
+  private Long id;
+  private String name;
+  private BigDecimal price;
   private Instant createdAt;
+  private Instant updatedAt;
 
 }
