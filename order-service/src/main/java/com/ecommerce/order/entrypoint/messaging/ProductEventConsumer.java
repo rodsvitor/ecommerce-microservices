@@ -4,7 +4,7 @@ import com.ecommerce.order.entrypoint.messaging.event.ProductCreatedEvent;
 import com.ecommerce.order.entrypoint.messaging.event.ProductDeletedEvent;
 import com.ecommerce.order.entrypoint.messaging.event.ProductUpdatedEvent;
 import com.ecommerce.order.infrastructure.persistence.mongo.entity.ProductSnapshot;
-import com.ecommerce.order.infrastructure.persistence.mongo.repository.ProductSnapshotRepository;
+import com.ecommerce.order.infrastructure.persistence.mongo.repository.ProductMongoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -17,7 +17,7 @@ import static com.ecommerce.order.entrypoint.messaging.mapper.ProductMapperEvent
 @RequiredArgsConstructor
 public class ProductEventConsumer {
 
-  private final ProductSnapshotRepository repository;
+  private final ProductMongoRepository repository;
 
   @KafkaListener(
       topics = "${app.kafka.topics.product-created}",

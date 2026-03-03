@@ -1,7 +1,7 @@
 package com.ecommerce.order.entrypoint.controller;
 
 import com.ecommerce.order.infrastructure.persistence.mongo.entity.ProductSnapshot;
-import com.ecommerce.order.infrastructure.persistence.mongo.repository.ProductSnapshotRepository;
+import com.ecommerce.order.infrastructure.persistence.mongo.repository.ProductMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,17 +16,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductQueryController {
 
-  private final ProductSnapshotRepository productSnapshotRepository;
+  private final ProductMongoRepository productMongoRepository;
 
   @GetMapping
   public ResponseEntity<List<ProductSnapshot>> getAllProducts() {
-    return ResponseEntity.ok(productSnapshotRepository.findAll());
+    return ResponseEntity.ok(productMongoRepository.findAll());
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<ProductSnapshot> getProductById(@PathVariable  Long id) {
     return ResponseEntity.ok(
-        productSnapshotRepository.findById(id)
+        productMongoRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Product not found"))
     );
   }
