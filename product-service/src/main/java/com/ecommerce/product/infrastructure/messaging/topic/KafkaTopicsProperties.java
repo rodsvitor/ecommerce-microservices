@@ -1,4 +1,4 @@
-package com.ecommerce.product.infrastructure.messaging;
+package com.ecommerce.product.infrastructure.messaging.topic;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

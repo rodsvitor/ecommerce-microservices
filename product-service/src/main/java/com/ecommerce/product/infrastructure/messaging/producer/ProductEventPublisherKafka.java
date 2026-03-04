@@ -1,10 +1,11 @@
-package com.ecommerce.product.infrastructure.messaging;
+package com.ecommerce.product.infrastructure.messaging.producer;
 
 import com.ecommerce.product.application.port.ProductEventPublisher;
 import com.ecommerce.product.domain.model.Product;
 import com.ecommerce.product.infrastructure.messaging.event.ProductCreatedEvent;
 import com.ecommerce.product.infrastructure.messaging.event.ProductDeletedEvent;
 import com.ecommerce.product.infrastructure.messaging.event.ProductUpdatedEvent;
+import com.ecommerce.product.infrastructure.messaging.topic.KafkaTopicsProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;

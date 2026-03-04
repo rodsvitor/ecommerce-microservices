@@ -1,7 +1,8 @@
-package com.ecommerce.product.infrastructure.persistence;
+package com.ecommerce.product.infrastructure.persistence.repository;
 
 import com.ecommerce.product.domain.model.Product;
 import com.ecommerce.product.domain.repository.ProductRepository;
+import com.ecommerce.product.infrastructure.persistence.entity.ProductEntity;
 import com.ecommerce.product.infrastructure.persistence.mapper.ProductMapperORM;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
