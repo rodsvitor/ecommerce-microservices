@@ -22,12 +22,22 @@ spring:
           productUpdated: com.ecommerce.order.entrypoint.messaging.event.ProductUpdatedEvent,
           productDeleted: com.ecommerce.order.entrypoint.messaging.event.ProductDeletedEvent
 
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: true
+        spring.json.type.mapping: >
+          orderCreated: com.ecommerce.order.infrastructure.messaging.event.OrderCreatedEvent
+
 app:
   kafka:
     topics:
       product-created: product-created-topic
       product-updated: product-updated-topic
       product-deleted: product-deleted-topic
+      order:
+        created: order-created-topic
 
 server:
   port: ${SERVER_PORT:8080}

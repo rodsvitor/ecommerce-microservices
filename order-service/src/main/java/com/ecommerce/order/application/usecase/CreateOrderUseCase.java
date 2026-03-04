@@ -4,6 +4,7 @@ import com.ecommerce.order.application.dto.request.CreateOrderRequest;
 import com.ecommerce.order.application.dto.request.OrderItemRequest;
 import com.ecommerce.order.application.dto.response.OrderCreatedResponse;
 import com.ecommerce.order.application.mapper.OrderMapperDTO;
+import com.ecommerce.order.application.port.OrderEventPublisher;
 import com.ecommerce.order.domain.model.Order;
 import com.ecommerce.order.domain.model.OrderItem;
 import com.ecommerce.order.domain.model.OrderStatus;
@@ -24,6 +25,7 @@ public class CreateOrderUseCase {
   private final OrderRepository orderRepository;
   private final ProductRepository productRepository;
   private final OrderMapperDTO orderMapperDTO;
+  private final OrderEventPublisher eventPublisher;
 
   public OrderCreatedResponse execute(CreateOrderRequest request) {
 
@@ -35,6 +37,8 @@ public class CreateOrderUseCase {
     var order = buildOrder(request, items);
 
     order = orderRepository.save(order);
+
+    eventPublisher.publishOrderCreated(order);
 
     return orderMapperDTO.toOrderCreatedResponse(order);
 
