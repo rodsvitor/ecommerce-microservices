@@ -6,6 +6,10 @@ import com.ecommerce.order.infrastructure.persistence.mongo.mapper.OrderMapperOR
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class OrderRepositoryImpl implements OrderRepository {
@@ -22,5 +26,20 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     return mapperORM.toDomain(orderDocument);
 
+  }
+
+  @Override
+  public Optional<Order> findById(UUID id) {
+    return mongoRepository.findById(id)
+        .map(mapperORM::toDomain);
+  }
+
+  @Override
+  public List<Order> findAll() {
+    return mongoRepository
+        .findAll()
+        .stream()
+        .map(mapperORM::toDomain)
+        .toList();
   }
 }
