@@ -121,6 +121,18 @@ services:
       - kafka
     networks:
       - ecommerce-network
+        
+  payment:
+    build: ./payment-service
+    container_name: payment
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "8084:8080"
+    depends_on:
+      - kafka
+    networks:
+      - ecommerce-network
 
 volumes:
     auth_db-data:
