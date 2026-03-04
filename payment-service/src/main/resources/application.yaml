@@ -1,3 +1,38 @@
 spring:
   application:
     name: payment-service
+
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: ${spring.application.name}-group
+      auto-offset-reset: earliest
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      # enable-auto-commit: false
+
+      properties:
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.trusted.packages: "com.ecommerce.payment.entrypoint.messaging.event"
+        spring.json.type.mapping: >
+          orderCreated: com.ecommerce.payment.entrypoint.messaging.event.OrderCreatedEvent
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: true
+        spring.json.type.mapping: >
+          paymentProcessed: com.ecommerce.payment.infrastructure.messaging.event.PaymentProcessedEvent
+
+app:
+  kafka:
+    topics:
+      payment:
+        payment-processed: payment-processed-topic
+      order:
+        order-created: order-created-topic
+
+server:
+  port: ${SERVER_PORT:8080}
