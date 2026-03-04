@@ -2,7 +2,7 @@ package com.ecommerce.order.application.usecase;
 
 import com.ecommerce.order.application.dto.request.CreateOrderRequest;
 import com.ecommerce.order.application.dto.request.OrderItemRequest;
-import com.ecommerce.order.application.dto.response.OrderCreatedResponse;
+import com.ecommerce.order.application.dto.response.OrderResponse;
 import com.ecommerce.order.application.mapper.OrderMapperDTO;
 import com.ecommerce.order.application.port.OrderEventPublisher;
 import com.ecommerce.order.domain.model.Order;
@@ -27,7 +27,7 @@ public class CreateOrderUseCase {
   private final OrderMapperDTO orderMapperDTO;
   private final OrderEventPublisher eventPublisher;
 
-  public OrderCreatedResponse execute(CreateOrderRequest request) {
+  public OrderResponse execute(CreateOrderRequest request) {
 
     List<OrderItem> items = request.items()
         .stream()

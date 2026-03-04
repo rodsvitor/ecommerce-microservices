@@ -2,7 +2,7 @@ package com.ecommerce.order.entrypoint.controller;
 
 
 import com.ecommerce.order.application.dto.request.CreateOrderRequest;
-import com.ecommerce.order.application.dto.response.OrderCreatedResponse;
+import com.ecommerce.order.application.dto.response.OrderResponse;
 import com.ecommerce.order.application.usecase.CreateOrderUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class OrderController {
   private final CreateOrderUseCase createOrderUseCase;
 
   @PostMapping
-  public ResponseEntity<OrderCreatedResponse> create(@RequestBody CreateOrderRequest request) {
+  public ResponseEntity<OrderResponse> create(@RequestBody CreateOrderRequest request) {
     return new ResponseEntity<>(createOrderUseCase.execute(request), HttpStatus.CREATED);
   }
 
