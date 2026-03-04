@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,8 +22,8 @@ import java.util.List;
 public class OrderDocument {
 
   @Id
-  private String id;
-  private String userId;
+  private UUID id;
+  private UUID userId;
   private List<OrderItem> items;
   private BigDecimal totalAmount;
   private OrderStatus status;
