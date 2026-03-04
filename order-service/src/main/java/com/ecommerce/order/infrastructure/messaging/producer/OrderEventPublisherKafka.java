@@ -1,8 +1,8 @@
-package com.ecommerce.order.infrastructure.messaging;
+package com.ecommerce.order.infrastructure.messaging.producer;
 
 import com.ecommerce.order.application.port.OrderEventPublisher;
 import com.ecommerce.order.domain.model.Order;
-import com.ecommerce.order.entrypoint.messaging.OrderTopicsProperties;
+import com.ecommerce.order.entrypoint.messaging.topic.OrderTopicsProperties;
 import com.ecommerce.order.infrastructure.messaging.mapper.OrderMapperEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class OrderEventPublisherKafka implements OrderEventPublisher {
     var event = OrderMapperEvent.toOrderCreatedEvent(orderCreated);
 
     kafkaTemplate.send(topics.created(), event);
-    log.info("Published created order: {}", event);
+    log.info("Published created order event: {}", event);
 
   }
 

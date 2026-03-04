@@ -1,4 +1,4 @@
-package com.ecommerce.order.entrypoint.messaging.event;
+package com.ecommerce.order.entrypoint.messaging.event.product;
 
 import lombok.*;
 

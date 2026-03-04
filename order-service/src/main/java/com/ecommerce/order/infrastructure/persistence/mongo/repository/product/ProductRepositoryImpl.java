@@ -1,4 +1,4 @@
-package com.ecommerce.order.infrastructure.persistence.mongo.repository;
+package com.ecommerce.order.infrastructure.persistence.mongo.repository.product;
 
 import com.ecommerce.order.domain.model.Product;
 import com.ecommerce.order.domain.repository.ProductRepository;

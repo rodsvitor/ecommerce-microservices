@@ -1,7 +1,7 @@
 package com.ecommerce.order.entrypoint.controller;
 
 import com.ecommerce.order.infrastructure.persistence.mongo.entity.ProductSnapshot;
-import com.ecommerce.order.infrastructure.persistence.mongo.repository.ProductMongoRepository;
+import com.ecommerce.order.infrastructure.persistence.mongo.repository.product.ProductMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

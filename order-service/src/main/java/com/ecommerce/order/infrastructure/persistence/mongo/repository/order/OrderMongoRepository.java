@@ -1,4 +1,4 @@
-package com.ecommerce.order.infrastructure.persistence.mongo.repository;
+package com.ecommerce.order.infrastructure.persistence.mongo.repository.order;
 
 import com.ecommerce.order.infrastructure.persistence.mongo.entity.OrderDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;

@@ -1,7 +1,7 @@
 package com.ecommerce.order.entrypoint.messaging.mapper;
 
-import com.ecommerce.order.entrypoint.messaging.event.ProductCreatedEvent;
-import com.ecommerce.order.entrypoint.messaging.event.ProductUpdatedEvent;
+import com.ecommerce.order.entrypoint.messaging.event.product.ProductCreatedEvent;
+import com.ecommerce.order.entrypoint.messaging.event.product.ProductUpdatedEvent;
 import com.ecommerce.order.infrastructure.persistence.mongo.entity.ProductSnapshot;
 
 public interface ProductMapperEvent {

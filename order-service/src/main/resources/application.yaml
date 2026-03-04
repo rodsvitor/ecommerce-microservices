@@ -1,6 +1,6 @@
 spring:
   application:
-    name: order
+    name: order-service
   data:
     mongodb:
       uri: ${SPRING_DATA_MONGODB_URI}
@@ -8,7 +8,7 @@ spring:
   kafka:
     bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS}
     consumer:
-      group-id: order-group
+      group-id: ${spring.application.name}-group
       key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       # enable-auto-commit: false
@@ -18,9 +18,10 @@ spring:
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
         spring.json.trusted.packages: "com.ecommerce.order.entrypoint.messaging.event"
         spring.json.type.mapping: >
-          productCreated: com.ecommerce.order.entrypoint.messaging.event.ProductCreatedEvent,
-          productUpdated: com.ecommerce.order.entrypoint.messaging.event.ProductUpdatedEvent,
-          productDeleted: com.ecommerce.order.entrypoint.messaging.event.ProductDeletedEvent
+          productCreated: com.ecommerce.order.entrypoint.messaging.event.product.ProductCreatedEvent,
+          productUpdated: com.ecommerce.order.entrypoint.messaging.event.product.ProductUpdatedEvent,
+          productDeleted: com.ecommerce.order.entrypoint.messaging.event.product.ProductDeletedEvent,
+          paymentProcessed: com.ecommerce.order.entrypoint.messaging.event.payment.PaymentProcessedEvent
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

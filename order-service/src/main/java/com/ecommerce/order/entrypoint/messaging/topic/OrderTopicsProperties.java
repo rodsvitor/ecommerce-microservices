@@ -1,4 +1,4 @@
-package com.ecommerce.order.entrypoint.messaging;
+package com.ecommerce.order.entrypoint.messaging.topic;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,7 +1,6 @@
-package com.ecommerce.order.entrypoint.messaging.event;
+package com.ecommerce.order.entrypoint.messaging.event.product;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
