@@ -27,5 +27,6 @@ public class OrderDocument {
   private BigDecimal totalAmount;
   private OrderStatus status;
   private Instant createdAt;
+  private Instant updatedAt;
 
 }

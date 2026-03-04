@@ -22,5 +22,6 @@ public class Order {
   private BigDecimal totalAmount;
   private OrderStatus status;
   private Instant createdAt;
+  private Instant updatedAt;
 
 }
