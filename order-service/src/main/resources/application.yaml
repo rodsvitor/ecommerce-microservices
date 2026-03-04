@@ -33,9 +33,10 @@ spring:
 app:
   kafka:
     topics:
-      product-created: product-created-topic
-      product-updated: product-updated-topic
-      product-deleted: product-deleted-topic
+      product:
+        created: product-created-topic
+        updated: product-updated-topic
+        deleted: product-deleted-topic
       order:
         created: order-created-topic
 

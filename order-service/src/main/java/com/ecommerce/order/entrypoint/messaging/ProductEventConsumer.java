@@ -20,7 +20,7 @@ public class ProductEventConsumer {
   private final ProductMongoRepository repository;
 
   @KafkaListener(
-      topics = "${app.kafka.topics.product-created}",
+      topics = "${app.kafka.topics.product.created}",
       groupId = "order-group"
   )
   public void handleCreate(ProductCreatedEvent event) {
@@ -34,7 +34,7 @@ public class ProductEventConsumer {
   }
 
   @KafkaListener(
-      topics = "${app.kafka.topics.product-updated}",
+      topics = "${app.kafka.topics.product.updated}",
       groupId = "order-group"
   )
   public void handleUpdate(ProductUpdatedEvent event) {
@@ -49,7 +49,7 @@ public class ProductEventConsumer {
   }
 
   @KafkaListener(
-      topics = "${app.kafka.topics.product-deleted}",
+      topics = "${app.kafka.topics.product.deleted}",
       groupId = "order-group"
   )
   public void handleDelete(ProductDeletedEvent event) {
