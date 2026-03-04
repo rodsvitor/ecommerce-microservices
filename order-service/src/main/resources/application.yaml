@@ -40,6 +40,8 @@ app:
         deleted: product-deleted-topic
       order:
         created: order-created-topic
+      payment:
+        payment-processed: payment-processed-topic
 
 server:
   port: ${SERVER_PORT:8080}
