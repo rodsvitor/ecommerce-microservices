@@ -1,9 +1,8 @@
 package com.ecommerce.order.infrastructure.messaging.producer;
 
 import com.ecommerce.order.application.port.OrderEventPublisher;
-import com.ecommerce.order.domain.model.Order;
+import com.ecommerce.order.domain.outbox.OutboxEvent;
 import com.ecommerce.order.entrypoint.messaging.topic.OrderTopicsProperties;
-import com.ecommerce.order.infrastructure.messaging.mapper.OrderMapperEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -18,12 +17,14 @@ public class OrderEventPublisherKafka implements OrderEventPublisher {
   private final OrderTopicsProperties topics;
 
   @Override
-  public void publishOrderCreated(Order orderCreated) {
+  public void publish(OutboxEvent outboxEvent) {
 
-    var event = OrderMapperEvent.toOrderCreatedEvent(orderCreated);
+    kafkaTemplate.send(
+        topics.created(),
+        outboxEvent.getAggregateId(),
+        outboxEvent.getPayload());
 
-    kafkaTemplate.send(topics.created(), event);
-    log.info("Published created order event: {}", event);
+    log.info("🚀🚀🚀 Published created order event: {}", outboxEvent.getPayload());
 
   }
 
