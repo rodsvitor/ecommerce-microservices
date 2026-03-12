@@ -14,12 +14,16 @@ import org.springframework.stereotype.Component;
 public class PaymentEventConsumer {
 
   private final UpdateStatusOrderBasedOnProcessedPaymentUseCase updateOrderStatusUseCase;
+  private final EventDeserializer eventDeserializer;
 
   @KafkaListener(topics = "${app.kafka.topics.payment.payment-processed}")
-  public void handlePaymentProcessed(PaymentProcessedEvent paymentEvent) {
+  public void handlePaymentProcessed(String payload) {
+
+    var paymentEvent = eventDeserializer.getObject(payload, PaymentProcessedEvent.class);
 
     log.info("Received payment processed event: {}", paymentEvent);
 
+    // TODO ADD command class here to deal with usecase
     var payment = Payment.builder()
         .orderId(paymentEvent.getPaymentOrderId())
         .status(paymentEvent.getPaymentStatus())

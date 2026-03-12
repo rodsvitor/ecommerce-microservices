@@ -17,11 +17,15 @@ import static com.ecommerce.order.entrypoint.messaging.mapper.ProductMapperEvent
 @RequiredArgsConstructor
 public class ProductEventConsumer {
 
+  // TODO Add use cases for deal with product
   private final ProductMongoRepository repository;
+  private final EventDeserializer deserializer;
+
 
   @KafkaListener(topics = "${app.kafka.topics.product.created}")
-  public void handleCreate(ProductCreatedEvent event) {
+  public void handleCreate(String payload) {
 
+    var event = deserializer.getObject(payload, ProductCreatedEvent.class);
     log.info("Received product created event: {}", event);
 
     ProductSnapshot snapshot = updateSnapshot(event);
@@ -31,7 +35,9 @@ public class ProductEventConsumer {
   }
 
   @KafkaListener(topics = "${app.kafka.topics.product.updated}")
-  public void handleUpdate(ProductUpdatedEvent event) {
+  public void handleUpdate(String payload) {
+
+    var event = deserializer.getObject(payload, ProductUpdatedEvent.class);
     log.info("Received product updated event: {}", event);
 
     repository.findById(event.getProductId())
@@ -43,9 +49,13 @@ public class ProductEventConsumer {
   }
 
   @KafkaListener(topics = "${app.kafka.topics.product.deleted}")
-  public void handleDelete(ProductDeletedEvent event) {
+  public void handleDelete(String payload) {
+
+    var event = deserializer.getObject(payload, ProductDeletedEvent.class);
+
     log.info("Received product deleted event: {}", event);
     repository.deleteById(event.getProductId());
+
   }
 
 }
