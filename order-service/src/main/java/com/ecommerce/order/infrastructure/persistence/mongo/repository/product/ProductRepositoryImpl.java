@@ -4,11 +4,11 @@ import com.ecommerce.order.domain.model.Product;
 import com.ecommerce.order.domain.repository.ProductRepository;
 import com.ecommerce.order.infrastructure.persistence.mongo.mapper.ProductMapperORM;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class ProductRepositoryImpl implements ProductRepository {
 
