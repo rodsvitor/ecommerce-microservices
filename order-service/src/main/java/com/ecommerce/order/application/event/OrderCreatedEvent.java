@@ -1,4 +1,4 @@
-package com.ecommerce.order.infrastructure.messaging.event;
+package com.ecommerce.order.application.event;
 
 import com.ecommerce.order.domain.model.OrderStatus;
 import lombok.AllArgsConstructor;

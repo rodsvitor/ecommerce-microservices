@@ -1,4 +1,4 @@
-package com.ecommerce.order.infrastructure.messaging.event;
+package com.ecommerce.order.application.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

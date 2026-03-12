@@ -1,9 +1,9 @@
-package com.ecommerce.order.infrastructure.messaging.mapper;
+package com.ecommerce.order.application.mapper;
 
 import com.ecommerce.order.domain.model.Order;
 import com.ecommerce.order.domain.model.OrderItem;
-import com.ecommerce.order.infrastructure.messaging.event.OrderCreatedEvent;
-import com.ecommerce.order.infrastructure.messaging.event.OrderItemEvent;
+import com.ecommerce.order.application.event.OrderCreatedEvent;
+import com.ecommerce.order.application.event.OrderItemEvent;
 
 import java.util.List;
 
