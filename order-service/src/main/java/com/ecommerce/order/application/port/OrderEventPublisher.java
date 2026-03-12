@@ -1,9 +1,9 @@
 package com.ecommerce.order.application.port;
 
-import com.ecommerce.order.domain.model.Order;
+import com.ecommerce.order.domain.outbox.OutboxEvent;
 
 public interface OrderEventPublisher {
 
-  void publishOrderCreated(Order orderCreated);
+  void publish(OutboxEvent outboxEvent);
 
 }
