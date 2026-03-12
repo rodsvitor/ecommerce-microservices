@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
@@ -28,6 +29,11 @@ public class OrderController {
   @GetMapping
   public ResponseEntity<List<OrderResponse>> findAll() {
     return ResponseEntity.ok(orderQueryService.findAll());
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<OrderResponse> findById(@PathVariable UUID id) {
+    return ResponseEntity.ok(orderQueryService.findById(id));
   }
 
 }

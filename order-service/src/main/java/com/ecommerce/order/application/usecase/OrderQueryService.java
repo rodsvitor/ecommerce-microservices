@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,14 @@ public class OrderQueryService {
         .stream()
         .map(mapperDTO::toOrderCreatedResponse)
         .toList();
+
+  }
+
+  public OrderResponse findById(UUID id) {
+
+    return orderRepository.findById(id)
+        .map(mapperDTO::toOrderCreatedResponse)
+        .orElseThrow(() -> new RuntimeException("Order not found"));
 
   }
 
