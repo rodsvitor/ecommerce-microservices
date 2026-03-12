@@ -26,10 +26,10 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      properties:
-        spring.json.add.type.headers: true
-        spring.json.type.mapping: >
-          orderCreated: com.ecommerce.order.infrastructure.messaging.event.OrderCreatedEvent
+#      properties:
+#        spring.json.add.type.headers: true
+#        spring.json.type.mapping: >
+#          orderCreated: com.ecommerce.order.infrastructure.messaging.event.OrderCreatedEvent
 
 app:
   kafka:
