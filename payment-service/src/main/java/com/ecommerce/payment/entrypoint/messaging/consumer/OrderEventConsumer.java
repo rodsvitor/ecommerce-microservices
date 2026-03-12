@@ -1,9 +1,12 @@
 package com.ecommerce.payment.entrypoint.messaging.consumer;
 
-import com.ecommerce.payment.domain.model.Payment;
-import com.ecommerce.payment.domain.model.PaymentStatus;
+import com.ecommerce.payment.application.command.CreatePaymentCommand;
+import com.ecommerce.payment.application.command.ProcessPaymentCommand;
+import com.ecommerce.payment.application.usecase.CreatePaymentUseCase;
+import com.ecommerce.payment.application.usecase.ProcessPaymentUseCase;
 import com.ecommerce.payment.entrypoint.messaging.event.OrderCreatedEvent;
-import com.ecommerce.payment.infrastructure.messaging.producer.PaymentEventPublisherKafka;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -14,37 +17,43 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderEventConsumer {
 
-  private final PaymentEventPublisherKafka publisherEvent;
+  private final ProcessPaymentUseCase processPaymentUseCase;
+  private final CreatePaymentUseCase createPaymentUseCase;
+  private final ObjectMapper objectMapper;
 
   @KafkaListener(topics = "${app.kafka.topics.order.order-created}")
-  public void handleCreate(OrderCreatedEvent event) {
+  public void handleCreate(String payload) {
 
-    log.info("Received order created event: {}", event);
+    OrderCreatedEvent event = getOrderCreatedEvent(payload);
 
-    PaymentStatus paymentStatus = simulatePayment(event);
+    log.info("🔥 Received order created event: {}", event);
 
-    var paymentProcessed = Payment.builder()
+    var processPaymentCommand = ProcessPaymentCommand.builder()
+        .userId(event.getOrderUserId())
         .orderId(event.getOrderId())
-        .status(paymentStatus)
+        .amount(event.getOrderTotalAmount())
         .build();
 
-    publisherEvent.publishPaymentProcessed(paymentProcessed);
+    var paymentStatus = processPaymentUseCase.execute(processPaymentCommand);
+
+    var createPaymentCommand = CreatePaymentCommand.builder()
+        .orderId(event.getOrderId())
+        .status(paymentStatus)
+        .amount(event.getOrderTotalAmount())
+        .build();
+
+    createPaymentUseCase.execute(createPaymentCommand);
 
   }
 
-  private PaymentStatus simulatePayment(OrderCreatedEvent event) {
+  private OrderCreatedEvent getOrderCreatedEvent(String payload) {
 
     try {
-      log.info("Processing payment for order: {}", event);
-      Thread.sleep(2_000); // simulate processing
-
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
+      return objectMapper.readValue(payload, OrderCreatedEvent.class);
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException("Failed to serialize event", e);
     }
 
-    return Math.random() > 0.2 // 80% success rate
-        ? PaymentStatus.SUCCESS
-        : PaymentStatus.FAIL;
   }
 
 }
