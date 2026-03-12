@@ -19,12 +19,12 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      properties:
-        spring.json.add.type.headers: true
-        spring.json.type.mapping: >
-          productCreated: com.ecommerce.product.infrastructure.messaging.event.ProductCreatedEvent,
-          productUpdated: com.ecommerce.product.infrastructure.messaging.event.ProductUpdatedEvent,
-          productDeleted: com.ecommerce.product.infrastructure.messaging.event.ProductDeletedEvent
+      #properties:
+      #  spring.json.add.type.headers: true
+      #  spring.json.type.mapping: >
+      #    productCreated: com.ecommerce.product.infrastructure.messaging.event.ProductCreatedEvent,
+      #    productUpdated: com.ecommerce.product.infrastructure.messaging.event.ProductUpdatedEvent,
+      #    productDeleted: com.ecommerce.product.infrastructure.messaging.event.ProductDeletedEvent
 
 app:
   kafka:
