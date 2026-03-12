@@ -1,7 +1,7 @@
 package com.ecommerce.payment.infrastructure.messaging.producer;
 
-import com.ecommerce.payment.domain.model.Payment;
-import com.ecommerce.payment.infrastructure.messaging.mapper.PaymentMapperEvent;
+import com.ecommerce.payment.application.port.PaymentEventPublisher;
+import com.ecommerce.payment.domain.outbox.OutboxEvent;
 import com.ecommerce.payment.infrastructure.messaging.topic.PaymentTopicsProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,19 +11,20 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class PaymentEventPublisherKafka {
+public class PaymentEventPublisherKafka implements PaymentEventPublisher {
 
   private final KafkaTemplate<String, Object> kafkaTemplate;
   private final PaymentTopicsProperties paymentTopics;
 
-  public void publishPaymentProcessed(Payment payment) {
+  @Override
+  public void publish(OutboxEvent outboxEvent) {
 
-    var paymentEvent = PaymentMapperEvent.toPaymentProcessedEvent(payment);
+    kafkaTemplate.send(
+        paymentTopics.paymentProcessed(),
+        outboxEvent.getAggregateId(),
+        outboxEvent.getPayload());
 
-    kafkaTemplate.send(paymentTopics.paymentProcessed(), paymentEvent);
-
-    log.info("Published payment processed event: {}", payment);
+    log.info("🚀🚀🚀 Published payment processed event: {}", outboxEvent.getPayload());
 
   }
-
 }
