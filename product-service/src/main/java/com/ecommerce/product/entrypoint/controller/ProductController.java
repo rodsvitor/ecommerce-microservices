@@ -1,14 +1,10 @@
 package com.ecommerce.product.entrypoint.controller;
 
+import com.ecommerce.product.application.dto.*;
 import com.ecommerce.product.application.usecase.CreateProductUseCase;
-import com.ecommerce.product.application.usecase.CreateProductUseCase.CreateProductRequest;
-import com.ecommerce.product.application.usecase.CreateProductUseCase.ProductCreatedResponse;
 import com.ecommerce.product.application.usecase.DeleteProductUseCase;
 import com.ecommerce.product.application.usecase.ProductQueryService;
-import com.ecommerce.product.application.usecase.ProductQueryService.QueriedProductResponse;
 import com.ecommerce.product.application.usecase.UpdateProductUseCase;
-import com.ecommerce.product.application.usecase.UpdateProductUseCase.UpdateProductRequest;
-import com.ecommerce.product.application.usecase.UpdateProductUseCase.UpdatedProductResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

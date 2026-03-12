@@ -1,8 +1,8 @@
-package com.ecommerce.product.infrastructure.messaging.mapper;
+package com.ecommerce.product.application.mapper;
 
 import com.ecommerce.product.domain.model.Product;
-import com.ecommerce.product.infrastructure.messaging.event.ProductCreatedEvent;
-import com.ecommerce.product.infrastructure.messaging.event.ProductUpdatedEvent;
+import com.ecommerce.product.application.event.ProductCreatedEvent;
+import com.ecommerce.product.application.event.ProductUpdatedEvent;
 
 public interface ProductMapperEvent {
 
