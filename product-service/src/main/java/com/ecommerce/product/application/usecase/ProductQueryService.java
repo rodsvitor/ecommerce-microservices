@@ -1,11 +1,11 @@
 package com.ecommerce.product.application.usecase;
 
+import com.ecommerce.product.application.dto.QueriedProductResponse;
 import com.ecommerce.product.application.mapper.ProductMapperDTO;
 import com.ecommerce.product.domain.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -31,7 +31,5 @@ public class ProductQueryService {
         .orElseThrow(() -> new RuntimeException("Product not found"));
 
   }
-
-  public record QueriedProductResponse(String name, BigDecimal price) {}
 
 }
