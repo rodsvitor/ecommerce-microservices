@@ -1,4 +1,4 @@
-package com.ecommerce.order.application.usecase;
+package com.ecommerce.order.application.service;
 
 import com.ecommerce.order.application.dto.response.OrderResponse;
 import com.ecommerce.order.application.mapper.OrderMapperDTO;

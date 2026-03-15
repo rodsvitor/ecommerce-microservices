@@ -16,7 +16,7 @@ import java.util.List;
 public class OutboxPublisher {
 
   private final OutboxRepository outboxRepository;
-  private final OrderEventPublisher publisher;
+  private final OrderEventPublisher orderEvent;
 
   @Scheduled(fixedDelay = 10_000)
   public void publishEvents() {
@@ -25,7 +25,7 @@ public class OutboxPublisher {
     List<OutboxEvent> events = outboxRepository.findByPublishedFalse();
 
     for (OutboxEvent event : events) {
-      publisher.publish(event);
+      orderEvent.publish(event);
       event.setPublished(true);
       outboxRepository.save(event);
 

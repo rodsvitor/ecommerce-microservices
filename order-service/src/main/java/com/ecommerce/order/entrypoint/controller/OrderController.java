@@ -4,7 +4,7 @@ package com.ecommerce.order.entrypoint.controller;
 import com.ecommerce.order.application.dto.request.CreateOrderRequest;
 import com.ecommerce.order.application.dto.response.OrderResponse;
 import com.ecommerce.order.application.usecase.CreateOrderUseCase;
-import com.ecommerce.order.application.usecase.OrderQueryService;
+import com.ecommerce.order.application.service.OrderQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
