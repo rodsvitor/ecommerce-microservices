@@ -25,6 +25,8 @@ public class ProductEventConsumer {
   @KafkaListener(topics = "${app.kafka.topics.product.created}")
   public void handleCreate(String payload) {
 
+    // TODO try to receive ProductCreatedEvent directly by parameter
+
     var event = deserializer.getObject(payload, ProductCreatedEvent.class);
     log.info("Received product created event: {}", event);
 
@@ -32,6 +34,8 @@ public class ProductEventConsumer {
 
     repository.save(snapshot);
 //    ack.acknowledge();
+
+    // TODO Implement persistence for processed events.
   }
 
   @KafkaListener(topics = "${app.kafka.topics.product.updated}")

@@ -19,6 +19,8 @@ public class PaymentEventConsumer {
   @KafkaListener(topics = "${app.kafka.topics.payment.payment-processed}")
   public void handlePaymentProcessed(String payload) {
 
+    // TODO try to receive PaymentProcessedEvent directly by parameter
+
     var paymentEvent = eventDeserializer.getObject(payload, PaymentProcessedEvent.class);
 
     log.info("Received payment processed event: {}", paymentEvent);
@@ -30,6 +32,8 @@ public class PaymentEventConsumer {
         .build();
 
     updateOrderStatusUseCase.execute(payment);
+
+    // TODO Implement persistence for processed events.
 
   }
 
