@@ -1,9 +1,6 @@
 package com.ecommerce.payment.entrypoint.messaging.consumer;
 
-import com.ecommerce.payment.application.command.CreatePaymentCommand;
-import com.ecommerce.payment.application.command.ProcessPaymentCommand;
-import com.ecommerce.payment.application.usecase.CreatePaymentUseCase;
-import com.ecommerce.payment.application.usecase.ProcessPaymentUseCase;
+import com.ecommerce.payment.application.service.PaymentApplicationService;
 import com.ecommerce.payment.entrypoint.messaging.event.OrderCreatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,32 +14,18 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderEventConsumer {
 
-  private final ProcessPaymentUseCase processPaymentUseCase;
-  private final CreatePaymentUseCase createPaymentUseCase;
   private final ObjectMapper objectMapper;
+  private final PaymentApplicationService paymentApplicationService;
 
   @KafkaListener(topics = "${app.kafka.topics.order.order-created}")
   public void handleCreate(String payload) {
 
+    // TODO try to receive OrderCreatedEvent in parameter
     OrderCreatedEvent event = getOrderCreatedEvent(payload);
 
     log.info("🔥 Received order created event: {}", event);
 
-    var processPaymentCommand = ProcessPaymentCommand.builder()
-        .userId(event.getOrderUserId())
-        .orderId(event.getOrderId())
-        .amount(event.getOrderTotalAmount())
-        .build();
-
-    var paymentStatus = processPaymentUseCase.execute(processPaymentCommand);
-
-    var createPaymentCommand = CreatePaymentCommand.builder()
-        .orderId(event.getOrderId())
-        .status(paymentStatus)
-        .amount(event.getOrderTotalAmount())
-        .build();
-
-    createPaymentUseCase.execute(createPaymentCommand);
+    paymentApplicationService.handleOrderCreated(event);
 
   }
 
