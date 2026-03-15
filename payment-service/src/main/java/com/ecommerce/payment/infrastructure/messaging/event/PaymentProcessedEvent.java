@@ -1,6 +1,6 @@
 package com.ecommerce.payment.infrastructure.messaging.event;
 
-import com.ecommerce.payment.domain.model.PaymentStatus;
+import com.ecommerce.payment.domain.payment.PaymentStatus;
 import lombok.Builder;
 import lombok.Data;
 
