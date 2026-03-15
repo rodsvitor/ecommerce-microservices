@@ -1,4 +1,4 @@
-package com.ecommerce.payment.domain.model;
+package com.ecommerce.payment.domain.payment;
 
 import lombok.Builder;
 import lombok.Data;

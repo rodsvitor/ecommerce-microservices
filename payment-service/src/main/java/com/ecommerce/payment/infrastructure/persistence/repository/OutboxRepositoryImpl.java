@@ -1,4 +1,4 @@
-package com.ecommerce.payment.infrastructure.persistence.entity.repository;
+package com.ecommerce.payment.infrastructure.persistence.repository;
 
 import com.ecommerce.payment.domain.outbox.OutboxEvent;
 import com.ecommerce.payment.domain.outbox.OutboxRepository;

@@ -1,7 +1,7 @@
-package com.ecommerce.payment.infrastructure.persistence.entity.repository;
+package com.ecommerce.payment.infrastructure.persistence.repository;
 
-import com.ecommerce.payment.domain.model.Payment;
-import com.ecommerce.payment.domain.repository.PaymentRepository;
+import com.ecommerce.payment.domain.payment.Payment;
+import com.ecommerce.payment.domain.payment.PaymentRepository;
 import org.springframework.stereotype.Component;
 
 @Component

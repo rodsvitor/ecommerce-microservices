@@ -1,6 +1,6 @@
 package com.ecommerce.payment.entrypoint.messaging.event;
 
-import com.ecommerce.payment.domain.model.OrderStatus;
+import com.ecommerce.payment.domain.order.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

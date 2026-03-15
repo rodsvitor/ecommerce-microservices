@@ -1,7 +1,7 @@
 package com.ecommerce.payment.application.mapper;
 
 import com.ecommerce.payment.application.event.PaymentCreatedEvent;
-import com.ecommerce.payment.domain.model.Payment;
+import com.ecommerce.payment.domain.payment.Payment;
 
 
 public interface PaymentMapperEvent {

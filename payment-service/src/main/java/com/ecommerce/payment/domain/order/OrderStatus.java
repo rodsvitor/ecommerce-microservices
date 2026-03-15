@@ -1,4 +1,4 @@
-package com.ecommerce.payment.domain.model;
+package com.ecommerce.payment.domain.order;
 
 public enum OrderStatus {
 

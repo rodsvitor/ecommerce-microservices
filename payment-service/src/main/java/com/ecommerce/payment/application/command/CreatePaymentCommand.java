@@ -1,6 +1,6 @@
 package com.ecommerce.payment.application.command;
 
-import com.ecommerce.payment.domain.model.PaymentStatus;
+import com.ecommerce.payment.domain.payment.PaymentStatus;
 import lombok.Builder;
 import lombok.Data;
 

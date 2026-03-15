@@ -1,7 +1,7 @@
 package com.ecommerce.payment.application.usecase;
 
 import com.ecommerce.payment.application.command.ProcessPaymentCommand;
-import com.ecommerce.payment.domain.model.PaymentStatus;
+import com.ecommerce.payment.domain.payment.PaymentStatus;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.extern.slf4j.Slf4j;
