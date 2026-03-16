@@ -19,10 +19,17 @@ public class PaymentEventPublisherKafka implements PaymentEventPublisher {
   @Override
   public void publish(OutboxEvent outboxEvent) {
 
-    kafkaTemplate.send(
-        paymentTopics.paymentProcessed(),
-        outboxEvent.getAggregateId(),
-        outboxEvent.getPayload());
+    try {
+
+      kafkaTemplate.send(
+          paymentTopics.paymentProcessed(),
+          outboxEvent.getAggregateId(),
+          outboxEvent.getPayload()
+      ).get();
+
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to publish outbox event", e);
+    }
 
     log.info("🚀🚀🚀 Published payment processed event: {}", outboxEvent.getPayload());
 

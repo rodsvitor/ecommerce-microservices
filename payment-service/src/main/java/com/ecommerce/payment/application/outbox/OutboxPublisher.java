@@ -23,11 +23,16 @@ public class OutboxPublisher {
 
     for (OutboxEvent event : events) {
 
-      paymentEventPublisher.publish(event);
-      event.setPublished(true);
-      outboxRepository.save(event);
+      try {
+        paymentEventPublisher.publish(event);
+        event.setPublished(true);
+        outboxRepository.save(event);
 
-      log.info("Outbox event published: {}", event.getId());
+        log.info("Outbox event published: {}", event.getId());
+
+      } catch (Exception e) {
+        log.error("Failed to publish event {}", event.getId(), e);
+      }
 
     }
 
