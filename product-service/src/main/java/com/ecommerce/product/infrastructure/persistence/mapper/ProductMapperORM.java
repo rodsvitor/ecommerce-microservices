@@ -2,7 +2,7 @@ package com.ecommerce.product.infrastructure.persistence.mapper;
 
 
 import com.ecommerce.product.domain.model.Product;
-import com.ecommerce.product.infrastructure.persistence.ProductEntity;
+import com.ecommerce.product.infrastructure.persistence.entity.ProductEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
