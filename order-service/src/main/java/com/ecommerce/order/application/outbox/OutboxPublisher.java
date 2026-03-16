@@ -25,11 +25,19 @@ public class OutboxPublisher {
     List<OutboxEvent> events = outboxRepository.findByPublishedFalse();
 
     for (OutboxEvent event : events) {
-      orderEvent.publish(event);
-      event.setPublished(true);
-      outboxRepository.save(event);
 
-      log.info("Outbox event published: {}", event.getId());
+      try {
+
+        orderEvent.publish(event);
+        event.setPublished(true);
+        outboxRepository.save(event);
+
+        log.info("Outbox event published: {}", event.getId());
+
+      } catch (Exception e) {
+        log.error("Failed to publish event {}", event.getId(), e);
+      }
+
     }
 
   }

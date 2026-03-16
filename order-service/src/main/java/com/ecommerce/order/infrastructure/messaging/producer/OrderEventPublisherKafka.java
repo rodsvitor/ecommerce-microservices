@@ -19,10 +19,17 @@ public class OrderEventPublisherKafka implements OrderEventPublisher {
   @Override
   public void publish(OutboxEvent outboxEvent) {
 
-    kafkaTemplate.send(
-        topics.created(),
-        outboxEvent.getAggregateId(),
-        outboxEvent.getPayload());
+    try {
+
+      kafkaTemplate.send(
+          topics.created(),
+          outboxEvent.getAggregateId(),
+          outboxEvent.getPayload()
+      ).get();
+
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to publish outbox event", e);
+    }
 
     log.info("🚀🚀🚀 Published created order event: {}", outboxEvent.getPayload());
 
