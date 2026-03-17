@@ -36,6 +36,7 @@ public class ProductEventConsumer {
 //    ack.acknowledge();
 
     // TODO Implement persistence for processed events.
+    // TODO and idempotency with exceptions for duplicate key
   }
 
   @KafkaListener(topics = "${app.kafka.topics.product.updated}")

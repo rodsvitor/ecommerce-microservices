@@ -33,7 +33,8 @@ public class PaymentEventConsumer {
 
     updateOrderStatusUseCase.execute(payment);
 
-    // TODO Implement persistence for processed events.
+    // TODO Implement persistence for processed events
+    // TODO and idempotency with exceptions for duplicate key
 
   }
 
