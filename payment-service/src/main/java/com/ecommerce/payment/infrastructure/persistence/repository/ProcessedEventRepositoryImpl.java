@@ -1,8 +1,10 @@
 package com.ecommerce.payment.infrastructure.persistence.repository;
 
+import com.ecommerce.payment.application.exception.DuplicateEventException;
 import com.ecommerce.payment.domain.processedevent.ProcessedEvent;
 import com.ecommerce.payment.domain.processedevent.ProcessedEventRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashSet;
@@ -18,8 +20,11 @@ public class ProcessedEventRepositoryImpl implements ProcessedEventRepository {
   @Override
   public void save(ProcessedEvent processedEvent) {
 
-    events.add(processedEvent);
-
+    try {
+      events.add(processedEvent);
+    } catch (DataIntegrityViolationException e) {
+      throw new DuplicateEventException(processedEvent.eventId());
+    }
     // TODO Implement ORM Save
 //    var outboxDocument = mapperORM.toDocument(processedEvent);
 //

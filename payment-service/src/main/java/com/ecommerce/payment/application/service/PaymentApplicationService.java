@@ -2,12 +2,15 @@ package com.ecommerce.payment.application.service;
 
 import com.ecommerce.payment.application.command.CreatePaymentCommand;
 import com.ecommerce.payment.application.command.ProcessPaymentCommand;
+import com.ecommerce.payment.application.exception.DuplicateEventException;
 import com.ecommerce.payment.application.usecase.ProcessPaymentUseCase;
 import com.ecommerce.payment.domain.payment.PaymentStatus;
 import com.ecommerce.payment.entrypoint.messaging.event.OrderCreatedEvent;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PaymentApplicationService {
@@ -17,11 +20,17 @@ public class PaymentApplicationService {
 
   public void handleOrderCreated(OrderCreatedEvent event) {
 
-    var paymentStatus = processPaymentUseCase.execute(buildProcessPaymentCommand(event));
+    try {
 
-    paymentPersistenceService.savePaymentAndMarkEvent(
-        buildCreatePaymentCommand(event, paymentStatus),
-        event.getEventId());
+      var paymentStatus = processPaymentUseCase.execute(buildProcessPaymentCommand(event));
+
+      paymentPersistenceService.savePaymentAndMarkEvent(
+          buildCreatePaymentCommand(event, paymentStatus),
+          event.getEventId());
+
+    } catch (DuplicateEventException e) {
+      log.info("Event already processed: {}", event.getEventId());
+    }
 
   }
 
