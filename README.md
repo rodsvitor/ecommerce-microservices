@@ -1,4 +1,3 @@
-````md
 # 🛒 Ecommerce Microservices
 
 A scalable e-commerce backend built using a microservices architecture.
