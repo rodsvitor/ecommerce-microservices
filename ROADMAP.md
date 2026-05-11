@@ -1,4 +1,3 @@
-```md
 # 🧠 Ecommerce Microservices — TODO / Roadmap
 
 > Goal:
