@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: product-service
+          uri: ${PRODUCT_URL}
+          predicates:
+            - Path=/products/**
+
+        - id: order-service
+          uri: ${ORDER_URL}
+          predicates:
+            - Path=/orders/**
+
+        - id: auth-service
+          uri: ${AUTH_URL}
+          predicates:
+            - Path=/auth/**
+
+server:
+  port: ${SERVER_PORT:8080}
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    reactor.netty.http.client: DEBUG
