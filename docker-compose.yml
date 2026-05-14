@@ -134,6 +134,23 @@ services:
     networks:
       - ecommerce-network
 
+  gateway:
+    build: ./gateway-service
+    container_name: gateway
+    environment:
+      AUTH_URL: http://auth:8080
+      ORDER_URL: http://order:8080
+      PRODUCT_URL: http://product:8080
+
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth
+      - product
+      - order
+    networks:
+      - ecommerce-network
+
 volumes:
     auth_db-data:
     product_db-data:
