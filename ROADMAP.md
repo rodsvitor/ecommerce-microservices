@@ -14,6 +14,7 @@
 - [x] Kafka container (KRaft mode)
 - [x] Network configuration
 - [x] Volume persistence
+- [ ] Docker Health Checks for kafka, auth, product and order
 
 ## Services
 - [x] Auth Service
