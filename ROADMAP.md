@@ -57,6 +57,7 @@
 - [ ] Retry strategy for consumers
 - [ ] Idempotent consumers
 - [ ] Kafka topic versioning
+- [x] Kafka UI
 
 ## Outbox Pattern
 - [ ] Implement transactional outbox

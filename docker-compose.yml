@@ -72,6 +72,23 @@ services:
       # Log directory
       KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+  
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: kafka-ui
+
+    ports:
+      - "9095:8080"
+
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+    depends_on:
+      - kafka
+
+    networks:
+      - ecommerce-network
 
   auth:
     build: ./auth-service
