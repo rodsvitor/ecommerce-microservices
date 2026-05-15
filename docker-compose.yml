@@ -82,8 +82,8 @@ services:
       SPRING_DATASOURCE_USERNAME: auth_user
       SPRING_DATASOURCE_PASSWORD: auth_pass
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    ports:
-      - "8081:8080"
+    expose:
+      - "8080"
     depends_on:
       postgres-auth:
         condition: service_healthy
@@ -100,8 +100,8 @@ services:
       SPRING_DATASOURCE_USERNAME: product_user
       SPRING_DATASOURCE_PASSWORD: product_pass
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    ports:
-      - "8082:8080"
+    expose:
+      - "8080"
     depends_on:
       - postgres-product
       - kafka
@@ -114,8 +114,8 @@ services:
     environment:
       SPRING_DATA_MONGODB_URI: mongodb://mongodb-order:27017/order_db
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    ports:
-      - "8083:8080"
+    expose:
+      - "8080"
     depends_on:
       - mongodb-order
       - kafka
@@ -127,8 +127,8 @@ services:
     container_name: payment
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    ports:
-      - "8084:8080"
+    expose:
+      - "8080"
     depends_on:
       - kafka
     networks:
